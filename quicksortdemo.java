@@ -18,7 +18,6 @@ public class quicksortdemo {
     public static void quicksortrec(int[] A, int start, int end) {
         if (end <= start) return;
         int pivot = partition(A, start, end);
-        // int pivot = partitionAlt(A, start, end);
         quicksortrec(A, start, pivot - 1);
         quicksortrec(A, pivot+1, end); 
     }
@@ -31,25 +30,6 @@ public class quicksortdemo {
                 i++;
                 temp = A[j];
                 A[j] = A[i];
-                A[i] = temp;
-            }
-        }
-        i++;
-        temp = A[i];
-        A[i] = A[end];
-        A[end] = temp;
-        return i;
-    }
-    public static int partitionAlt(int[] A, int start, int end) {
-        int pivot = A[end];
-        int i = start - 1;
-        int j = start - 1;
-        int temp;                                   // use for swapping
-        for (int n = start; n <= end; n++) {
-            if (A[n] < pivot) {
-                i++;
-                temp = A[n];
-                A[n] = A[i];
                 A[i] = temp;
             }
         }

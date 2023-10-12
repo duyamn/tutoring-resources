@@ -41,12 +41,10 @@ algo quicksort(int[] A, int start, int end) --[return]--> nothing
 algo partition(int[] A, int start, int end) --[return]--> int
     pivot <-- A[end]
     i <-- start - 1
-    j <-- start - 1
-    for n <-- start...end:
-        if A[n] < pivot then:
+    for j <-- start...end:
+        if A[j] < pivot then:
             i <-- i + 1
-            swap (A[n], A[i])
-        j <-- j + 1
+            swap (A[j], A[i])
     i <-- i + 1
     swap (A[i], A[end])
     return i
@@ -84,12 +82,10 @@ Now we can move onto `partition()`
 algo partition(int[] A, int start, int end) --[return]--> int
     pivot <-- A[end]
     i <-- start - 1
-    j <-- start - 1
-    for n <-- start...end:
-        if A[n] < pivot then:
+    for j <-- start...end:
+        if A[j] < pivot then:
             i <-- i + 1
-            swap (A[n], A[i])
-        j <-- j + 1
+            swap (A[j], A[i])
     i <-- i + 1
     swap (A[i], A[end])
     return i
@@ -103,37 +99,29 @@ we can have the left side and the right side then move the pivot to the middle a
 ...
     pivot <-- A[end]
     i <-- start - 1
-    j <-- start - 1
 ...
 ```
  - we first take our pivot value
    - the last/rightmost ele of the (sub)array
  - `i` is the last element of the left subarray
- - `j` is the last element of the right subarray
- - - `i` and `j` are initialized to the same value as both subarrays are empty at the start of `partition()`
+ - `i` is initialized as `start-1` since the subarray is empty at the start of `partition()`
 
 ```
 ...
-    for n <-- start...end:
-        if A[n] < pivot then:
+    for j <-- start...end:
+        if A[j] < pivot then:
             i <-- i + 1
-            swap (A[n], A[i])
-        j <-- j + 1
+            swap (A[j], A[i])
 ...
 ```
- - `for n <-- start...end:`
+ - `for j <-- start...end:`
    - we're looking at every index from `start` to `end`, inclusively
- - the if statement triggering means that the element `A[n]` is smaller than the pivot, meaning that it belongs to the left array
+ - the if statement triggering means that the element `A[j]` is smaller than the pivot, meaning that it belongs to the left array
    - we increment `i` as it represents the last element of the left subarray
      - this lets us grow the subarray by 1 in order to accomodate the element
      - `i` will now be the index to the first member of the right subarray
    - we then swap the two values, switching their places in the array
      - `i` is now be the index to the latest element to be added to the left subarray
- - outside of the for-loop we increment `j`
-   - in the case that the if-block triggers, `j` needs to be incremented so that the right subarray doesn't shrink as the left subarray grows
-   - in the case that the if-blcok does not trigger then it is the right subaray that grows so `j` must be incremented
-   - either way, `j` must be incremented
-     - in proper implementations of this algorithm you may find that `n` and `j` are the same value and a different style of loop is used as a result
 ```
 ...
     i <-- i + 1
@@ -142,20 +130,20 @@ we can have the left side and the right side then move the pivot to the middle a
 ```
  - after exiting the for loop the array will look something like this:
 ```
-               i               j end
-               v               v v
+               i                 end
+               v                 v
 [left sub array][right subarray][p]
 ```
 `i <-- i + 1`: we increment i so that it points to the first element of the right subarray
 ```
-                i              j end
-                v              v v
+                i                end
+                v                v
 [left sub array][right subarray][p]
 ```
 Then we swap the values at index `i` and index `end`
 ```
-                i              j end
-                v              v v
+                i                end
+                v                v
 [left sub array][p][right subarray]
 ```
 

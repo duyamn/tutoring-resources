@@ -17,16 +17,16 @@ public class quicksortdemo {
     }
     public static void quicksortrec(int[] A, int start, int end) {
         if (end <= start) return;
-        int pivot = partition(A, start, end);
-        quicksortrec(A, start, pivot - 1);
-        quicksortrec(A, pivot+1, end); 
+        int pivot = partition(A, start, end);       // used for pivoting, returns the final index of the pivot
+        quicksortrec(A, start, pivot - 1);          // recur on left subarray
+        quicksortrec(A, pivot+1, end);              // recur on right subarray
     }
     public static int partition(int[] A, int start, int end) {
         int pivot = A[end];
-        int i = start - 1;
+        int i = start - 1;                          // i represents the end of the left subarray
         int temp;                                   // use for swapping
         for (int j = start; j <= end; j++) {
-            if (A[j] < pivot) {
+            if (A[j] < pivot) {                     // populate the left subarray
                 i++;
                 temp = A[j];
                 A[j] = A[i];
